@@ -1,0 +1,11 @@
+# Things to do:
+#
+# Examine the .bashrc file
+# if the bashrc is missing the aliases command
+# add
+#  if [ -f ~/.bash_aliases ]; then
+#  . ~/.bash_aliases
+#  fi
+# 
+#
+

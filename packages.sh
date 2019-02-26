@@ -15,3 +15,12 @@ fi
 echo $OS
 echo $ARCH
 echo $VERSION
+
+if [ $OS = "ubuntu" ]; then
+	echo "Installing Packages"
+	apt install vim -y
+fi
+
+if [ $OS = "manjarolinux" ]; then
+	sudo pacman -S vim --noconfirm
+fi
