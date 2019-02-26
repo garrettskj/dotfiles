@@ -12,13 +12,9 @@ if [ -z "$VERSION" ]; then
     VERSION=$(awk '{print $3}' /etc/*-release)
 fi
 
-echo $OS
-echo $ARCH
-echo $VERSION
-
 if [ $OS = "ubuntu" ]; then
 	echo "Installing Packages"
-	apt install vim -y
+	sudo apt install vim -y
 fi
 
 if [ $OS = "manjarolinux" ]; then

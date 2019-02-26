@@ -5,8 +5,10 @@ ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
 
 # Xconfig
 rm ~/.Xdefaults
-ln -s ~/dotfiles/.Xdefaults ~/.Xdefaults
-xrdb -merge .Xdefaults
+if [[ -n $DISPLAY ]]; then
+ ln -s ~/dotfiles/.Xdefaults ~/.Xdefaults
+ xrdb -merge .Xdefaults
+fi
 
 # Shell
 touch ~/.bash_aliases
