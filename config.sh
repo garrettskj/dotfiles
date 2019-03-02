@@ -1,21 +1,30 @@
 
-# tmux
-if [[ -e ~/.tmux.conf ]]; then
- rm ~/.tmux.conf
- ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
-fi
+# Add a list of all the standard dotfiles here
 
-# Xconfig
-if [[ -e ~/.Xdefaults ]]; then
- rm ~/.Xdefaults
-fi
+FILES=(
+'.tmux.conf' \
+'.Xdefaults' \
+'.bash_aliases' \
+'.bashrc' \
+)
 
-if [[ -n $DISPLAY ]]; then
- ln -s ~/dotfiles/.Xdefaults ~/.Xdefaults
+# go through the list, and check for symlinks, and if they aren't symlinked..
+# symlink them!
+for file in ${FILES[@]}; do
+ if [ -L ~/$file ];
+ then
+  echo "IGNORE: $file symlink already exist"	
+ else
+  echo "CFG: Adding $file symlink..."	
+  rm ~/$file
+  ln -s ~/dotfiles/$file ~/$file
+ fi
+done
+
+
+# Misc other configurations
+## If the display variable is set:
+if [ ! -z "$DISPLAY" ]; then
+ echo "CFG: Found XSession, setting Xdefaults..."	
  xrdb -merge .Xdefaults
-fi
-
-# Shell
-if [ -e ~/.bash_aliases ]; then
- echo "alias vi='vim'" >> ~/.bash_aliases
 fi

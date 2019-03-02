@@ -14,9 +14,10 @@ fi
 
 if [ $OS = "ubuntu" ]; then
 	echo "Installing Packages"
-	sudo apt install vim -y
+	sudo apt install vim tmux -y
 fi
 
 if [ $OS = "manjarolinux" ]; then
-	sudo pacman -S vim --noconfirm
+	sudo pacman -S vim tmux intel-ucode --noconfirm
+	yaourt -S google-chrome-beta --noconfirm
 fi
