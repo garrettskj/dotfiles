@@ -18,6 +18,12 @@ if [ $OS = "ubuntu" ]; then
 fi
 
 if [ $OS = "manjarolinux" ]; then
-	sudo pacman -S vim tmux intel-ucode --noconfirm
+	sudo pacman -S vim tmux irssi weechat python-pip python2-pip intel-ucode --noconfirm
 	yaourt -S google-chrome-beta --noconfirm
 fi
+
+## pip install python modules
+## sudo pip2 install websocket_client
+## sudo pip3 install websocket_client
+
+
