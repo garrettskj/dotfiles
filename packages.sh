@@ -18,7 +18,7 @@ if [ $OS = "ubuntu" ]; then
 fi
 
 if [ $OS = "manjarolinux" ]; then
-	sudo pacman -S vim tmux xlip irssi weechat minicom python-pip python2-pip intel-ucode --noconfirm
+	sudo pacman -S vim tmux xclip irssi weechat minicom python-pip python2-pip intel-ucode --noconfirm
 	yaourt -S google-chrome-beta --noconfirm
 fi
 
