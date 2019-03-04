@@ -14,11 +14,11 @@ fi
 
 if [ $OS = "ubuntu" ]; then
 	echo "Installing Packages"
-	sudo apt install vim tmux minicom irssi -y
+	sudo apt install xclip vim tmux minicom irssi -y
 fi
 
 if [ $OS = "manjarolinux" ]; then
-	sudo pacman -S vim tmux irssi weechat minicom python-pip python2-pip intel-ucode --noconfirm
+	sudo pacman -S vim tmux xlip irssi weechat minicom python-pip python2-pip intel-ucode --noconfirm
 	yaourt -S google-chrome-beta --noconfirm
 fi
 
