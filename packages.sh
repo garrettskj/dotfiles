@@ -12,6 +12,7 @@ if [ -z "$VERSION" ]; then
     VERSION=$(awk '{print $3}' /etc/*-release)
 fi
 
+## Package installation
 if [ $OS = "ubuntu" ]; then
 	sudo apt install vlc xz-utils exfat-utils xclip vim tmux deluge curl minicom irssi openssh-server -y
 fi
@@ -20,6 +21,8 @@ if [ $OS = "manjarolinux" ]; then
 	sudo pacman -S vim tmux xclip irssi openssh-server vlc weechat minicom deluge curl python-pip python2-pip intel-ucode --noconfirm
 	yaourt -S google-chrome-beta --noconfirm
 fi
+
+
 
 ## pip install python modules
 ## sudo pip2 install websocket_client

@@ -3,9 +3,6 @@
 # handle initramfs.conf:
 # compress=xz
 #
-# handle update-manager.d/update-manager.conf (?)
-# prompt=normal
-#
 # create a kernel clean script
 #
 # launch tmux with the start of a shell?

@@ -28,3 +28,12 @@ if [ ! -z "$DISPLAY" ]; then
  echo "CFG: Found XSession, setting Xdefaults..."	
  xrdb -merge .Xdefaults
 fi
+
+## Modification of Ubuntu Release Manager:
+if [ -e /etc/update-manager/release-upgrades ]
+then
+ echo "Changing Ubuntu LTS to normal"
+ sudo sed -i 's/'Prompt=lts'/'Prompt=normal'/g' /etc/update-manager/release-upgrades
+else
+ echo "Not an ubuntu release..."
+fi
