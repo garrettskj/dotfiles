@@ -1,11 +1,14 @@
 # Things to do:
 #
-# Examine the .bashrc file
-# if the bashrc is missing the aliases command
-# add
-#  if [ -f ~/.bash_aliases ]; then
-#  . ~/.bash_aliases
-#  fi
-# 
+# handle initramfs.conf:
+# compress=xz
 #
-
+# handle update-manager.d/update-manager.conf (?)
+# prompt=normal
+#
+# create a kernel clean script
+#
+# launch tmux with the start of a shell?
+# this is difficult, i think we need to determine which ubuntu spin (to start) 
+# we are using, then shell the config files.
+# 

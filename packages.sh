@@ -13,11 +13,11 @@ if [ -z "$VERSION" ]; then
 fi
 
 if [ $OS = "ubuntu" ]; then
-	sudo apt install xclip vim tmux minicom irssi openssh-server -y
+	sudo apt install vlc xz-utils exfat-utils xclip vim tmux deluge curl minicom irssi openssh-server -y
 fi
 
 if [ $OS = "manjarolinux" ]; then
-	sudo pacman -S vim tmux xclip irssi openssh-server weechat minicom python-pip python2-pip intel-ucode --noconfirm
+	sudo pacman -S vim tmux xclip irssi openssh-server vlc weechat minicom deluge curl python-pip python2-pip intel-ucode --noconfirm
 	yaourt -S google-chrome-beta --noconfirm
 fi
 
