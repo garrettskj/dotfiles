@@ -14,11 +14,30 @@ fi
 
 ## Package installation
 if [ $OS = "ubuntu" ]; then
-	sudo apt install vlc xz-utils exfat-utils net-tools xclip vim tmux deluge curl minicom irssi openssh-server -y
+	# Install the signing keys
+	wget -qO - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+	wget -qO - https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -
+
+	## Update PPAs
+	# Chrome
+	sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+
+	# sublime
+	sudo sh -c 'echo "deb https://download.sublimetext.com/ apt/dev/" > /etc/apt/sources.list.d/sublime.list' 
+
+	# atom
+	sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
+
+	#slack
+	sudo sh -c 'echo "deb https://packagecloud.io/slacktechnologies/slack/debian/ jessie main" > /etc/apt/sources.list.d/slack.list'
+
+	### install updated packages
+	sudo apt update
+	sudo apt install remmina atom wireshark filezilla google-chrome-beta vlc xz-utils exfat-utils net-tools xclip vim tmux deluge curl minicom irssi openssh-server -y
 fi
 
 if [ $OS = "manjarolinux" ]; then
-	sudo pacman -Syu vim tmux net-tools xclip irssi openssh vlc-nightly weechat minicom deluge curl python-pip python2-pip intel-ucode --noconfirm
+	sudo pacman -Syu remmina wireshark filezilla vim tmux net-tools xclip irssi openssh vlc-nightly weechat minicom deluge curl python-pip python2-pip intel-ucode --noconfirm
 	yaourt -S google-chrome-beta --noconfirm
 fi
 
