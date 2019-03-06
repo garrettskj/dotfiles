@@ -4,7 +4,7 @@
 #
 # 'sensitive.sh $email'
 #
-LASTPASS='~/dotfiles/binaries/lpass'
+LASTPASS='/usr/bin/lpass'
 
 # Login to Lastpass and get status
 lplogin=$(exec $LASTPASS login $1)
