@@ -14,7 +14,7 @@ fi
 
 ## Package installation
 if [ $OS = "ubuntu" ]; then
-	sudo apt update vlc xz-utils exfat-utils net-tools xclip vim tmux deluge curl minicom irssi openssh-server -y
+	sudo apt install vlc xz-utils exfat-utils net-tools xclip vim tmux deluge curl minicom irssi openssh-server -y
 fi
 
 if [ $OS = "manjarolinux" ]; then
