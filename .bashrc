@@ -49,7 +49,7 @@ function lpssh() {
   if [[ ! $lpstatus =~ .*Not.* ]]
   then
    echo "Loading key: " "$1"
-   lpass show --notes "$1" | ssh-add
+   lpass show --notes "$1" | ssh-add -
   else
    echo "login to lastpass first..."
   fi
@@ -67,8 +67,6 @@ if [[ ! "$SSH_AUTH_SOCK" ]]; then
 fi
 
 [[ -f ~/.extend.bashrc ]] && . ~/.extend.bashrc
-
-
 
 [ -r /usr/share/bash-completion/bash_completion   ] && . /usr/share/bash-completion/bash_completion
 
