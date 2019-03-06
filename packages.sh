@@ -15,10 +15,10 @@ fi
 ## Package installation
 if [ $OS = "ubuntu" ]; then
 	# Install the signing keys
-	wget -qO - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-	wget -qO - https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -
-	wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
-	wget -qO - https://packagecloud.io/slacktechnologies/slack/gpgkey | sudo apt-key add -
+	wget -qO - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add - > /dev/null 2>&1
+	wget -qO - https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add - > /dev/null 2>&1
+	wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add - > /dev/null 2>&1
+	wget -qO - https://packagecloud.io/slacktechnologies/slack/gpgkey | sudo apt-key add - > /dev/null 2>&1
 	
 	## Update PPAs
 	# Chrome
@@ -35,7 +35,7 @@ if [ $OS = "ubuntu" ]; then
 
 	### install updated packages
 	sudo apt update
-	sudo apt install slack remmina atom wireshark filezilla google-chrome-beta vlc xz-utils exfat-utils net-tools xclip vim tmux deluge curl minicom irssi openssh-server -y
+	sudo apt install slack-desktop remmina atom wireshark filezilla google-chrome-beta vlc xz-utils exfat-utils net-tools xclip vim tmux deluge curl minicom irssi openssh-server -y
 fi
 
 if [ $OS = "manjarolinux" ]; then
