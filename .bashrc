@@ -49,7 +49,7 @@ function lpssh() {
   if [[ ! $lpstatus =~ .*Not.* ]]
   then
    echo "Loading key: " "$1"
-   lpass show --notes "$1" | ssh-add -
+   lpass show --notes "$1" --field 'Private Key' | ssh-add -
   else
    echo "login to lastpass first..."
   fi
