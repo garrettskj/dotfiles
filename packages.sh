@@ -18,8 +18,8 @@ if [ $OS = "ubuntu" ]; then
 fi
 
 if [ $OS = "manjarolinux" ]; then
-	sudo pacman -Su vim tmux xclip irssi openssh vlc-nightly weechat minicom deluge curl python-pip python2-pip intel-ucode --noconfirm
-	yaourt -Su google-chrome-beta --noconfirm
+	sudo pacman -Syu vim tmux xclip irssi openssh vlc-nightly weechat minicom deluge curl python-pip python2-pip intel-ucode --noconfirm
+	yaourt -S google-chrome-beta --noconfirm
 fi
 
 if [ ! -f /usr/bin/lpass ]; then
