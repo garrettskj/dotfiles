@@ -21,18 +21,12 @@ if [[ $lpstatus =~ .*Not.* ]]
   #
   if [ ! -f ~/.ssh/authorized_keys ]
   then
-    echo "adding authorized_keys"
+    echo "Creating & adding authorized_keys"
     mkdir -p ~/.ssh && touch ~/.ssh/authorized_keys
     chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys
     lpcopykeys=$(exec $LASTPASS show --notes authorized_keys >> ~/.ssh/authorized_keys)
   else
-   echo "Already Exists!"
+   echo "Already Exists! Overwriting.."
+   lpcopykeys=$(exec $LASTPASS show --notes authorized_keys > ~/.ssh/authorized_keys)
   fi
 fi
-
-# to show
-# $LASTPASS show --notes $notename
-# $LASTPASS show --notes $notename
-
-# to use for authentication
-#

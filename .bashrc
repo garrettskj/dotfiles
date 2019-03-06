@@ -42,6 +42,13 @@ colors() {
 	done
 }
 
+function lpssh() {
+ if [ ! -z "$1" ]
+ then
+  lpass show --notes "$1" | ssh-add
+ fi
+}
+
 [[ -f ~/.extend.bashrc ]] && . ~/.extend.bashrc
 
 [ -r /usr/share/bash-completion/bash_completion   ] && . /usr/share/bash-completion/bash_completion
