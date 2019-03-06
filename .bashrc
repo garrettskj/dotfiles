@@ -45,7 +45,16 @@ colors() {
 function lpssh() {
  if [ ! -z "$1" ]
  then
-  lpass show --notes "$1" | ssh-add
+  lpstatus=$(exec lpass status)
+  if [[ ! $lpstatus =~ .*Not.* ]]
+  then
+   echo "Loading key: " "$1"
+   lpass show --notes "$1" | ssh-add
+  else
+   echo "login to lastpass first..."
+  fi
+ else
+  echo "I need a key to load!"
  fi
 }
 

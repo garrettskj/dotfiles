@@ -22,7 +22,10 @@ if [ $OS = "manjarolinux" ]; then
 	yaourt -S google-chrome-beta --noconfirm
 fi
 
-
+if [ ! -f /usr/bin/lpass ]; then
+ echo "Installing Lastpass"
+ sudo cp ~/dotfiles/binaries/lpass /usr/bin/lpass
+fi
 
 ## pip install python modules
 ## sudo pip2 install websocket_client
