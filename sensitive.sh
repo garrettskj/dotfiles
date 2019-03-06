@@ -1,19 +1,33 @@
-#!/usr/bin/sh
+#!/bin/bash
 
-## First  login
-
-LASTPASS = ~/dotfiles/binaries/lpass
-
-$LASTPASS login
-
+## First login using the following:
 #
-## export out authorized keys
+# 'sensitive.sh $email'
 #
-if [ ! -e ~/.ssh/authorized_keys]
+LASTPASS='~/dotfiles/binaries/lpass'
+
+# Login to Lastpass and get status
+lplogin=$(exec $LASTPASS login $1)
+lpstatus=$(exec $LASTPASS status)
+
+## Check to see if Logged in
+if [[ $lpstatus =~ .*Not.* ]]
  then
-  mkdir ~/.ssh && touch ~/.ssh/authorized_keys
-  chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys
-  $LASTPASS show --notes authorized_keys >> ~/.ssh/authorized_keys
+  echo $lpstatus
+ else
+  echo $lpstatus
+  # If logged in...
+  # export out authorized keys
+  #
+  if [ ! -f ~/.ssh/authorized_keys ]
+  then
+    echo "adding authorized_keys"
+    mkdir -p ~/.ssh && touch ~/.ssh/authorized_keys
+    chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys
+    lpcopykeys=$(exec $LASTPASS show --notes authorized_keys >> ~/.ssh/authorized_keys)
+  else
+   echo "Already Exists!"
+  fi
 fi
 
 # to show
