@@ -14,12 +14,12 @@ fi
 
 ## Package installation
 if [ $OS = "ubuntu" ]; then
-	sudo apt install vlc xz-utils exfat-utils xclip vim tmux deluge curl minicom irssi openssh-server -y
+	sudo apt update vlc xz-utils exfat-utils xclip vim tmux deluge curl minicom irssi openssh-server -y
 fi
 
 if [ $OS = "manjarolinux" ]; then
-	sudo pacman -S vim tmux xclip irssi openssh vlc-nightly weechat minicom deluge curl python-pip python2-pip intel-ucode --noconfirm
-	yaourt -S google-chrome-beta --noconfirm
+	sudo pacman -Su vim tmux xclip irssi openssh vlc-nightly weechat minicom deluge curl python-pip python2-pip intel-ucode --noconfirm
+	yaourt -Su google-chrome-beta --noconfirm
 fi
 
 if [ ! -f /usr/bin/lpass ]; then
