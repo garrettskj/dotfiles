@@ -6,6 +6,8 @@
 #
 LASTPASS='/usr/bin/lpass'
 
+export LPASS_DISABLE_PINENTRY=1
+
 if [ $# -eq 0 ]
 then
  echo "Usage: ./sensitive.sh lastpasslogin"
