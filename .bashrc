@@ -32,8 +32,10 @@ fi
 
 ## Sync macro to sync to db
 function sync_history_to_db {
- # sync my history to dropbox
- /usr/bin/dbxcli-linux-amd64 put "$HISTFILE" "bash_history/$HISTFILENAME" > /dev/null 2>&1
+ # sync my history to dropbox, if authkey is there
+ if [ -f ~/.config/dbxcli/auth.json ]; then
+  /usr/bin/dbxcli-linux-amd64 put "$HISTFILE" "bash_history/$HISTFILENAME" > /dev/null 2>&1
+ fi
 }
 
 ### sync the history file every time "enter" is hit.
