@@ -23,8 +23,14 @@ HISTFILE="${HOME}/bash_history/$HISTFILENAME"
 
 export HISTFILE
 
+## Check for DB login 
+if [ ! -f ~/.config/dbxcli/auth.json ]; then
+    echo "You don't have valid db credentials installed."
+    echo "Consider setting up valid credentials with the following:"
+    echo "lpass show --notes db-auth.json > ~/.config/dbxcli/auth.json"
+fi
+
 ## Sync macro to sync to db
-## 
 function sync_history_to_db {
  # sync my history to dropbox
  /usr/bin/dbxcli-linux-amd64 put "$HISTFILE" "bash_history/$HISTFILENAME" > /dev/null 2>&1

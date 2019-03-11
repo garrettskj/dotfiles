@@ -46,10 +46,17 @@ fi
 if [ ! -f /usr/bin/lpass ]; then
  echo "Installing Lastpass"
  sudo cp ~/dotfiles/binaries/lpass /usr/bin/lpass
+else
+ echo "Lastpass already installed..."
+fi
+
+if [ ! -f /usr/bin/dbxcli-linux-amd64 ]; then
+ echo "Installing Dropbox CLI"
+ sudo cp ~/dotfiles/binaries/dbxcli-linux-amd64 /usr/bin/dbxcli-linux-amd64
+else 
+ echo "Dropbox CLI already installed..."
 fi
 
 ## pip install python modules
 ## sudo pip2 install websocket_client
 ## sudo pip3 install websocket_client
-
-
