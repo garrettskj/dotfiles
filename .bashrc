@@ -21,7 +21,7 @@ if [ ! -d ~/bash_history ]; then
 fi
 
 ## set history file
-HISTFILENAME="$(date -u +%Y%m%d-%H%M)_${HOSTNAME}_$$"
+HISTFILENAME="$(date +%Y%m%d-%H%M)_${HOSTNAME}_$$"
 HISTFILE="${HOME}/bash_history/$HISTFILENAME"
 
 export HISTFILE
