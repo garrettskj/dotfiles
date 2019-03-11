@@ -25,7 +25,7 @@ export HISTFILE
 
 ## Check for DB login 
 if [ ! -f ~/.config/dbxcli/auth.json ]; then
-    echo "You don't have valid db credentials installed."
+    echo "You don't have valid dropbox credentials installed."
     echo "Consider setting up valid credentials with the following:"
     echo "lpass show --notes db-auth.json > ~/.config/dbxcli/auth.json"
 fi
@@ -141,7 +141,8 @@ export VISUAL='vim'
 
 #### Check for and start SSH Agent
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
- ssh-agent > ~/.ssh-agent-info
+ touch ~/.ssh-agent.info
+ ssh-agent > ~/.ssh-agent-infoi
 fi
 if [[ ! "$SSH_AUTH_SOCK" ]]; then
  eval "$(<~/.ssh-agent-info)"

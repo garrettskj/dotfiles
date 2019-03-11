@@ -52,6 +52,7 @@ fi
 
 if [ ! -f /usr/bin/dbxcli-linux-amd64 ]; then
  echo "Installing Dropbox CLI"
+ mkdir -p ~/.config/dbxcli
  sudo cp ~/dotfiles/binaries/dbxcli-linux-amd64 /usr/bin/dbxcli-linux-amd64
 else 
  echo "Dropbox CLI already installed..."
