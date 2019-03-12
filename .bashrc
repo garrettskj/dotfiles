@@ -33,6 +33,17 @@ if [ ! -f ~/.config/dbxcli/auth.json ]; then
     echo "lpass show --notes db-auth.json > ~/.config/dbxcli/auth.json"
 fi
 
+
+### Generate a random string based on length
+function pwgen {
+ if [ ! -z "$1" ]
+ then
+  date +%s | sha256sum | base64 | head -c "$1" ; echo
+ else 
+  echo 'Enter the length: pwgen $length'
+ fi
+}
+
 ## Sync macro to sync to db
 function sync_history_to_db {
  # sync my history to dropbox, if authkey is there
