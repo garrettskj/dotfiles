@@ -26,7 +26,7 @@ HISTFILE="${HOME}/bash_history/$HISTFILENAME"
 
 export HISTFILE
 
-## Check for DB login 
+## Check for DB login
 if [ ! -f ~/.config/dbxcli/auth.json ]; then
     echo "You don't have valid dropbox credentials installed."
     echo "Consider setting up valid credentials with the following:"
