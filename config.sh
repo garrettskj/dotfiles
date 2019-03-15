@@ -6,6 +6,7 @@ FILES=(
 '.Xdefaults' \
 '.bash_aliases' \
 '.bashrc' \
+'.vimrc' \
 )
 
 # go through the list, and check for symlinks, and if they aren't symlinked..
@@ -27,6 +28,13 @@ done
 if [ ! -z "$DISPLAY" ]; then
  echo "CFG: Found XSession, setting Xdefaults..."	
  xrdb -merge .Xdefaults
+fi
+
+## Check to see if the VIM color folder exists
+if [ ! -d ~/.vim/colors ]; then
+ echo "Setting up VIM colors..."
+ mkdir -p ~/.vim/colors
+ cp ~/dotfiles/potato.vim ~/.vim/colors/potato.vim
 fi
 
 ## Modification of Ubuntu Release Manager:
