@@ -35,7 +35,7 @@ if [ $OS = "ubuntu" ]; then
 
 	### install updated packages
 	sudo apt update
-	sudo apt install htop scrot ffmpeg slack-desktop remmina atom wireshark filezilla google-chrome-beta vlc xz-utils exfat-utils net-tools xclip vim tmux deluge curl minicom irssi openssh-server -y
+	sudo apt install htop scrot ffmpeg slack-desktop remmina atom wireshark filezilla google-chrome-beta vlc xz-utils exfat-utils net-tools xclip vim-gnome tmux deluge curl minicom irssi openssh-server -y
 fi
 
 if [ $OS = "manjarolinux" ]; then
