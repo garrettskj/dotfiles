@@ -34,6 +34,26 @@ if [ ! -f ~/.config/dbxcli/auth.json ]; then
 fi
 
 
+### Listen to Di.FM
+function difm {
+ if [ ! -z "$1" ]
+ then
+  # get the key from lastpass
+  DIKEY=`lpass show --notes "DIFM-listenKey"`
+  # wrap around the mplayer output and just get the song title
+  mplayer -nocache -afm ffmpeg http://prem1.di.fm:80/$1?$DIKEY -identify -quiet 2>&1 | while read -r line; do
+  if grep "ICY" <<< "$line" &>/dev/null; then
+   song=$(grep -Po "ICY Info: StreamTitle='\K.*?(?=')" <<< $line);
+   echo "Playing: $song";
+   notify-send mplayerCLI "$song";
+  fi;
+  done
+ else
+  echo "Radio Station List: difm [chillstep, 00sclubhits, vocaltrance]"
+  echo "For more: https://www.di.fm/settings"
+ fi
+}
+
 ### Generate a random string based on length
 function pwgen {
  if [ ! -z "$1" ]
