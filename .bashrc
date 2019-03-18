@@ -33,7 +33,6 @@ if [ ! -f ~/.config/dbxcli/auth.json ]; then
     echo "lpass show --notes db-auth.json > ~/.config/dbxcli/auth.json"
 fi
 
-
 ### Listen to Di.FM
 function difm {
  if [ ! -z "$1" ]
@@ -41,7 +40,7 @@ function difm {
   # get the key from lastpass
   DIKEY=`lpass show --notes "DIFM-listenKey"`
   # wrap around the mplayer output and just get the song title
-  mplayer -nocache -afm ffmpeg http://prem1.di.fm:80/$1?$DIKEY -identify -quiet 2>&1 | while read -r line; do
+  mplayer -nocache -afm ffmpeg -prefer-ipv4 http://prem1.di.fm/$1?$DIKEY -identify -quiet 2>&1 | while read -r line; do
   if grep "ICY" <<< "$line" &>/dev/null; then
    song=$(grep -Po "ICY Info: StreamTitle='\K.*?(?=')" <<< $line);
    echo "Playing: $song";
@@ -58,7 +57,7 @@ function difm {
 function pwgen {
  if [ ! -z "$1" ]
  then
-  date +%s | sha256sum | base64 | head -c "$1" ; echo
+  < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-$1};echo;
  else 
   echo 'Enter the length: pwgen $length'
  fi
@@ -178,7 +177,7 @@ export VISUAL='vim'
 #### Check for and start SSH Agent
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
  touch ~/.ssh-agent.info
- ssh-agent > ~/.ssh-agent-infoi
+ ssh-agent > ~/.ssh-agent-info
 fi
 if [[ ! "$SSH_AUTH_SOCK" ]]; then
  eval "$(<~/.ssh-agent-info)"
@@ -205,11 +204,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -227,7 +221,5 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 [ -r /usr/share/bash-completion/bash_completion   ] && . /usr/share/bash-completion/bash_completion
-
-
 ### Bonus bashrc syntax
 [[ -f ~/.extend.bashrc ]] && . ~/.extend.bashrc
