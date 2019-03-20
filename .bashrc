@@ -33,6 +33,17 @@ if [ ! -f ~/.config/dbxcli/auth.json ]; then
     echo "lpass show --notes db-auth.json > ~/.config/dbxcli/auth.json"
 fi
 
+### Play twitch streams
+twitch() {
+ if [ ! -z "$1" ]
+ then
+  mpv https://www.twitch.tv/$1 ytdl-format="bestvideo[height<=?720]+bestaudio/best" --autofit=50% --quiet 2>&1
+ else
+  echo "Usage: twitch [ kitboga riotgames ] "
+ fi
+}
+
+
 ### Listen to Di.FM
 difm() {
  if [ ! -z "$1" ]
