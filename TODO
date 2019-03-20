@@ -1,10 +1,5 @@
 # Things to do:
 #
-# handle initramfs.conf:
-# compress=xz
-#
-# create a kernel clean script
-#
 # launch tmux with the start of a shell?
 # this is difficult, i think we need to determine which ubuntu spin (to start) 
 # we are using, then shell the config files.

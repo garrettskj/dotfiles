@@ -45,3 +45,12 @@ then
 else
  echo "Not an ubuntu release..."
 fi
+
+## Modification of initramfs:
+if [ -e /etc/initramfs-tools/initramfs.conf ]
+then
+ echo "updating initramfs.conf to use XZ compression"
+ sudo sed -i 's/'COMPRESS=gzip'/'COMPRESS=xz'/g' /etc/initramfs-tools/initramfs.conf
+else
+ echo "Must not be a linux system.. XD"
+fi
