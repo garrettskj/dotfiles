@@ -39,8 +39,8 @@ if [ $OS = "ubuntu" ]; then
 fi
 
 if [ $OS = "manjarolinux" ]; then
-	sudo pacman -Syu remmina wireshark filezilla vim tmux net-tools xclip irssi openssh vlc-nightly weechat minicom deluge curl python-pip python2-pip intel-ucode --noconfirm
-	yaourt -S google-chrome-beta --noconfirm
+	sudo pacman -Syu htop scrot ffmpeg atom remmina wireshark-qt filezilla gvim pinta mplayer tmux net-tools xclip irssi openssh vlc-nightly weechat minicom deluge curl python-pip python2-pip intel-ucode --noconfirm
+	yaourt -S google-chrome-beta slack-desktop --noconfirm
 fi
 
 if [ ! -f /usr/bin/lpass ]; then
