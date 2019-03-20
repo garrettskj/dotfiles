@@ -35,11 +35,11 @@ if [ $OS = "ubuntu" ]; then
 
 	### install updated packages
 	sudo apt update
-	sudo apt install htop scrot ffmpeg slack-desktop remmina atom wireshark filezilla google-chrome-beta vlc xz-utils exfat-utils net-tools xclip vim-gnome pinta tmux deluge curl minicom irssi openssh-server mplayer -y
+	sudo apt install htop scrot ffmpeg slack-desktop remmina atom wireshark filezilla google-chrome-beta vlc xz-utils exfat-utils net-tools xclip vim-gnome pinta tmux deluge curl minicom irssi openssh-server mpv -y
 fi
 
 if [ $OS = "manjarolinux" ]; then
-	sudo pacman -Syu htop scrot ffmpeg atom remmina wireshark-qt filezilla gvim pinta mplayer tmux net-tools xclip irssi openssh vlc-nightly weechat minicom deluge curl python-pip python2-pip intel-ucode --noconfirm
+	sudo pacman -Syu htop scrot ffmpeg atom remmina wireshark-qt filezilla gvim pinta mpv tmux net-tools xclip irssi openssh vlc-nightly weechat minicom deluge curl python-pip python2-pip intel-ucode --noconfirm
 	yaourt -S google-chrome-beta slack-desktop --noconfirm
 fi
 

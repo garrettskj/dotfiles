@@ -40,9 +40,9 @@ difm() {
   # get the key from lastpass
   DIKEY=`lpass show --notes "DIFM-listenKey"`
   # wrap around the mplayer output and just get the song title
-  mplayer -nocache -afm ffmpeg -prefer-ipv4 http://prem1.di.fm/$1?$DIKEY -identify -quiet 2>&1 | while read -r line; do
-  if grep "ICY" <<< "$line" &>/dev/null; then
-   song=$(grep -Po "ICY Info: StreamTitle='\K.*?(?=')" <<< $line);
+  mpv --cache=no http://prem1.di.fm/$1?$DIKEY --quiet 2>&1 | while read -r line; do
+  if grep "icy" <<< "$line" &>/dev/null; then
+   song=$(grep -Po "icy-title: \K.*?(?=$)" <<< $line);
    echo "Playing: $song";
    notify-send mplayerCLI "$song";
   fi;
