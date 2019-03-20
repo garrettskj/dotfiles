@@ -34,7 +34,7 @@ if [ ! -f ~/.config/dbxcli/auth.json ]; then
 fi
 
 ### Listen to Di.FM
-function difm {
+difm() {
  if [ ! -z "$1" ]
  then
   # get the key from lastpass
@@ -54,7 +54,7 @@ function difm {
 }
 
 ### Generate a random string based on length
-function pwgen {
+pwgen() {
  if [ ! -z "$1" ]
  then
   < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-$1};echo;
@@ -64,7 +64,7 @@ function pwgen {
 }
 
 ## Sync macro to sync to db
-function sync_history_to_db {
+sync_history_to_db() {
  # sync my history to dropbox, if authkey is there
  if [ -f ~/.config/dbxcli/auth.json ]; then
   /usr/bin/dbxcli-linux-amd64 put "$HISTFILE" "bash_history/$HISTFILENAME" > /dev/null 2>&1
@@ -153,7 +153,7 @@ colors() {
 }
 
 ### Last pass function:
-function lpssh() {
+lpssh() {
  if [ ! -z "$1" ]
  then
   lpstatus=$(exec lpass status)
