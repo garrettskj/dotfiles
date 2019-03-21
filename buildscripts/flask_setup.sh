@@ -34,12 +34,12 @@ else
 from flask import Flask, render_template
 application = Flask(__name__)
 
-@application.route(\"/\")
+@application.route(\"/$1/\")
 def hello():
     return \"<h1 style='color:blue'>Hello There!</h1>\"
 
-#if __name__ == \"__main__\":
-#    application.run(host='0.0.0.0')
+if __name__ == \"__main__\":
+    application.run(host='0.0.0.0')
 " > /opt/$1/$1.py
 
  echo "\
@@ -88,14 +88,23 @@ server {
     listen 80;
     server_name $1;
 
-    location /$1 {
+    ## this is specific to this flask instance
+    ## if you want multiple instances
+    ## add the locations to a single server file
+    
+    location /$1/ {
         include uwsgi_params;
         uwsgi_pass unix:/opt/$1/$1.sock;
     }
 }
-" > /opt/$1/$1-nginx.conf
+"> /opt/$1/$1-nginx.conf
 
- sudo cp /opt/$1/$1-nginx.conf /etc/nginx/sites-enabled/
+ ## this scripts overwrites the existing configuration
+ ## if you want multiple flask apps
+ ## simply concatenate all the locations together
+ ## in a single server file.
+ sudo cp /opt/$1/$1-nginx.conf /etc/nginx/sites-available/$1-nginx.conf
+ sudo ln -s /etc/nginx/sites-available/$1-nginx.conf /etc/nginx/sites-enabled/$1-nginx.conf
 
  if [ -f /etc/nginx/sites-enabled/default ]
  then 
