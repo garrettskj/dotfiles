@@ -1,7 +1,6 @@
 #!/bin/bash
 
 sudo apt install nginx git python3-pip python3-flask libpcre3 libpcre3-dev -y
-#
 sudo pip3 install virtualenv
 
 if [ -z "$1" ]
@@ -11,8 +10,8 @@ then
 else
  if [ ! -d /opt/$1 ]; then
   sudo mkdir -p /opt/$1
+  sudo mkdir -p /opt/$1/templates
  fi
-
 
  ## Configure all the generic permissions
  sudo useradd $1
@@ -32,15 +31,15 @@ else
  touch /opt/$1/$1.py
 
  echo "\
-from flask import Flask
+from flask import Flask, render_template
 application = Flask(__name__)
 
 @application.route(\"/\")
 def hello():
     return \"<h1 style='color:blue'>Hello There!</h1>\"
 
-if __name__ == \"__main__\":
-    application.run(host='0.0.0.0')
+#if __name__ == \"__main__\":
+#    application.run(host='0.0.0.0')
 " > /opt/$1/$1.py
 
  echo "\
@@ -87,9 +86,9 @@ WantedBy=multi-user.target
  echo "\
 server {
     listen 80;
-    server_name 54.212.48.222;
+    server_name $1;
 
-    location / {
+    location /$1 {
         include uwsgi_params;
         uwsgi_pass unix:/opt/$1/$1.sock;
     }
@@ -104,10 +103,9 @@ server {
  fi
 
  sudo chown -R $1:$1 /opt/$1
- sudo chmod 710 /opt/$1
+ sudo chmod 750 /opt/$1
 
  sudo systemctl enable $1
  sudo systemctl enable nginx
 
 fi
-
