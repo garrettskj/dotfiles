@@ -55,7 +55,7 @@ difm() {
   if grep "icy" <<< "$line" &>/dev/null; then
    song=$(grep -Po "icy-title: \K.*?(?=$)" <<< $line);
    echo "Playing: $song";
-   notify-send mplayerCLI "$song";
+   notify-send mpvCLI "$song";
   fi;
   done
  else
