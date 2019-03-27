@@ -64,6 +64,17 @@ difm() {
  fi
 }
 
+### TV Time!
+watchtv() {
+ if [ ! -z "$1" ]
+ then
+  # fix this with DNS at some point
+  mpv http://192.168.1.39:5004/auto/v"$1" --geometry=50%
+ else 
+  echo 'Enter the channel to watch: $0 $channel:'
+ fi
+}
+
 ### Generate a random string based on length
 pwgen() {
  if [ ! -z "$1" ]

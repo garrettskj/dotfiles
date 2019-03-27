@@ -30,14 +30,17 @@ def get_xml_data(time):
 	except FileNotFoundError:
 		# If the file doesn't exist, go and get it.
 		print ("We didn't find today's EPG data, therefore we are going to need to go and get it...")
-		username = input("Enter your username: ").rstrip()
-		password = input("Enter your password: ").rstrip()
+		username = input("Enter your Zap2it username: ").rstrip()
+		password = input("Enter your Zap2it password: ").rstrip()
 		p = subprocess.Popen(["perl", "zap2xml.pl", '-u', username, '-p', password, '-U', '-o', xml_filename], stdout=subprocess.PIPE)
 		p.communicate()
-
-	print("Data has been found. Processing all the data...")
-	with open(xml_filename, 'r') as xml_file:
-		programs = xmltv.read_programmes(xml_file)
+	
+	try:
+		with open(xml_filename, 'r') as xml_file:
+			programs = xmltv.read_programmes(xml_file)
+	except FileNotFoundError:
+		print("Unable to open the file still. Check your usernames and permissions and try again.")
+		exit()
 
 	return programs
 
@@ -45,7 +48,7 @@ def print_schedule(programs):
 
 	for pgram in programs:
 		# If the show starts today, (removed hours and minutes) and channel is under 700
-		if pgram['start'].startswith(todays_schedule()[:-4]) and int(pgram['channel'].split('.')[0][1:]) < 700:
+		if pgram['start'].startswith(todays_schedule()[:-4]) and int(pgram['channel'].split('.')[0][1:]) < 800:
 			# If the start time + the duration is less than the current time, assume it's over.
 			if (int(pgram['start'][8:12]) + int(pgram['length']['length'])) < int(todays_schedule()[-4:]):
 				order = "OVER:"
