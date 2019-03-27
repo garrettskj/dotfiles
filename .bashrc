@@ -63,6 +63,16 @@ difm() {
   echo "For more: https://www.di.fm/settings"
  fi
 }
+## Chromecast ###
+cast(){
+ if [ ! -z "$1" ]
+ then
+  # fix this with DNS at some point
+  vlc "$2" --sout "#chromecast" --sout-chromecast-ip="$1" --demux-filter=demux_chromecast
+ else 
+  echo "Chromecast Usage: $0 IP filename"
+ fi
+}
 
 ### TV Time!
 watchtv() {
