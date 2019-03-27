@@ -72,12 +72,12 @@ def main_prog():
 if __name__ == '__main__':
 	main_prog()
 
-# {'channel': 'I1796.20655.zap2it.com',                                                                                                 │manofmilk@twopercent:~/gitrepos/jfunk-python-xmltv-bfe2da203254$ cp ~/xmltvplay.py .                                                  
-# 'episode-num': [('SH02507767.0000', 'dd_progid')],                                                                                   │manofmilk@twopercent:~/gitrepos/jfunk-python-xmltv-bfe2da203254$
-# 'icon': [{'src': 'https://zap2it.tmsimg.com/assets/p13264747_st_v8_aa.jpg'}],                                                        ├───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-# 'length': {'length': '30', 'units': 'minutes'},                                                                                      │[vo/gpu/x11] Error code: 2, request code: 96, minor code: 3
-# 'new': True,                                                                                                                         │[vo/gpu] Could not create GLX context!
-# 'start': '20190402090000 -0700',                                                                                                     │[vo/gpu/vulkan] vkEnumeratePhysicalDevices(vk->inst, &num, NULL): VK_ERROR_INITIALIZATION_FAILED                                      
-# 'stop': '20190402093000 -0700',                                                                                                      │[vo/vdpau] Error when calling vdp_device_create_x11: 1
-# 'title': [('Art of Life', 'en')],                                                                                                    │[vo/xv] Warning: this legacy VO has bad quality and performance, and will in particular result in blurry OSD and subtitles. You should 
-# 'url': ['https://tvlistings.zap2it.com//overview.html?programSeriesId=SH02507767&tmsId=SH025077670000']},     
+# {'channel': 'I1796.20655.zap2it.com',                                                                    
+# 'episode-num': [('SH02507767.0000', 'dd_progid')],                                                       
+# 'icon': [{'src': 'https://zap2it.tmsimg.com/assets/p13264747_st_v8_aa.jpg'}],                            
+# 'length': {'length': '30', 'units': 'minutes'},                                                          
+# 'new': True,                                                                                             
+# 'start': '20190402090000 -0700',                                                                         
+# 'stop': '20190402093000 -0700',                                                                          
+# 'title': [('Art of Life', 'en')],                                                                        
+# 'url': ['https://tvlistings.zap2it.com//overview.html?programSeriesId=SH02507767&tmsId=SH025077670000']},
