@@ -3,6 +3,7 @@
 import xmltv
 import time
 import subprocess
+import json
 
 def todays_schedule():
 	l_time = time.localtime()
@@ -10,11 +11,12 @@ def todays_schedule():
 	today = []
 	for time_value in range(0,len(l_time)):
 		if time_value < 5: # only get the Y/M/D/H/M
-			if int(l_time[time_value] < 9):
+			if int(l_time[time_value] <= 9):
 				today.append(str(l_time[time_value]).zfill(2))
 			else:
 				today.append(str(l_time[time_value]))
 
+	# returns time YYYYMMDDHHmm
 	return ''.join(today)
 
 def get_xml_data(time):
@@ -44,22 +46,42 @@ def get_xml_data(time):
 
 	return programs
 
-def print_schedule(programs):
+def print_schedule(programs, channel_list):
 
 	for pgram in programs:
-		# If the show starts today, (removed hours and minutes) and channel is under 700
-		if pgram['start'].startswith(todays_schedule()[:-4]) and int(pgram['channel'].split('.')[0][1:]) < 800:
-			# If the start time + the duration is less than the current time, assume it's over.
-			if (int(pgram['start'][8:12]) + int(pgram['length']['length'])) < int(todays_schedule()[-4:]):
-				order = "OVER:"
-			# otherwise, if the show time started before the current time, assume it's happening now.
-			elif pgram['start'][8:12] < (todays_schedule()[-4:]):
-				order = "NOW:"
-			# otherwise the show is still upcoming.
-			else:
-				order = "SOON:"
-			# Print the title, the start time, and the channel
-			print(f"{order} {pgram['title'][0][0]} at {pgram['start'][8:12]}+{pgram['length']['length']} on Channel: {pgram['channel'].split('.')[0][1:]}") 
+		# Determine if we even have the channel, by looking at the latest channel list and comparing it.
+		if pgram['channel'].split('.')[0][1:] in [channel_data[0] for channel_data in channel_list]:
+			# Now determine if the show starts today, (removed hours and minutes)
+			if pgram['start'].startswith(todays_schedule()[:-4]):
+				# If the start time + the duration is before than the current time, assume it's over.
+				if (int(pgram['start'][8:12]) + int(pgram['length']['length'])) < int(todays_schedule()[-4:]):
+					order = "OVER:"
+				# otherwise, if the show time started before the current time, assume it's happening now.
+				elif pgram['start'][8:12] < (todays_schedule()[-4:]):
+					order = "NOW:"
+				# otherwise the show is still upcoming.
+				else:
+					order = "SOON:"
+				# Print the title, the start time, and the channel
+				print(f"{order} {pgram['title'][0][0]} at {pgram['start'][8:12]}+{pgram['length']['length']} on Channel: {pgram['channel'].split('.')[0][1:]}") 
+
+def json_channel_list(hdhomerun_channel_file):
+
+	with open(hdhomerun_channel_file) as json_file:
+		data = json.load(json_file)
+
+	goodChannelList = []
+
+	for channel in data:
+		for g_key, g_value in channel.items():
+			if g_key == 'GuideNumber':
+				chan = g_value
+			if g_key == 'GuideName':
+				name = g_value
+
+		goodChannelList.append((chan, name))
+		
+	return goodChannelList
 
 def main_prog():
 
@@ -67,7 +89,9 @@ def main_prog():
 
 	program_data = get_xml_data(short_time)
 
-	print_schedule(program_data)
+	avail_channels = json_channel_list('lineup.json')
+
+	print_schedule(program_data, avail_channels)
 
 if __name__ == '__main__':
 	main_prog()
