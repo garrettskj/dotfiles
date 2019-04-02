@@ -59,6 +59,7 @@ lpssh() {
 ### TV Time!
 watchtv() {
  TVHOST='http://192.168.1.39:5004'
+
  local OPTIND opt c r
  while getopts "rc:" opt; do
    case "${opt}" in
@@ -66,7 +67,8 @@ watchtv() {
        CHANNEL="${OPTARG}"
        ;;
      r) # process remote
-       TVHOST='http://watchtv:rightnow@home.pinginfinity.com:9004'
+	   TVKEY=`lpass show --notes TVKEY`
+       TVHOST="http://watchtv:"$TVKEY"@home.pinginfinity.com:9004"
        ;;
      \?) echo "Usage: "$0" [-c] ## [-r]"
        ;;
