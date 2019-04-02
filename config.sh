@@ -5,6 +5,7 @@ FILES=(
 '.tmux.conf' \
 '.Xdefaults' \
 '.bash_aliases' \
+'.bash_functions' \
 '.bashrc' \
 '.vimrc' \
 )
@@ -21,7 +22,6 @@ for file in ${FILES[@]}; do
   ln -s ~/dotfiles/$file ~/$file
  fi
 done
-
 
 # Misc other configurations
 ## If the display variable is set:

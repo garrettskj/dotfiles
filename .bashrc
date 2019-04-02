@@ -33,68 +33,6 @@ if [ ! -f ~/.config/dbxcli/auth.json ]; then
     echo "lpass show --notes db-auth.json > ~/.config/dbxcli/auth.json"
 fi
 
-### Play twitch streams
-twitch() {
- if [ ! -z "$1" ]
- then
-  mpv https://www.twitch.tv/$1 ytdl-format="bestvideo[height<=?720]+bestaudio/best" --autofit=50% --quiet 2>&1
- else
-  echo "Usage: twitch [ kitboga riotgames ] "
- fi
-}
-
-
-### Listen to Di.FM
-difm() {
- if [ ! -z "$1" ]
- then
-  # get the key from lastpass
-  DIKEY=`lpass show --notes "DIFM-listenKey"`
-  # wrap around the mplayer output and just get the song title
-  mpv --cache=no http://prem1.di.fm/$1?$DIKEY --quiet 2>&1 | while read -r line; do
-  if grep "icy" <<< "$line" &>/dev/null; then
-   song=$(grep -Po "icy-title: \K.*?(?=$)" <<< $line);
-   echo "Playing: $song";
-   notify-send mpvCLI "$song";
-  fi;
-  done
- else
-  echo "Radio Station List: difm [chillstep, 00sclubhits, vocaltrance]"
-  echo "For more: https://www.di.fm/settings"
- fi
-}
-## Chromecast ###
-cast(){
- if [ ! -z "$1" ]
- then
-  # fix this with DNS at some point
-  vlc "$2" --sout "#chromecast" --sout-chromecast-ip="$1" --demux-filter=demux_chromecast
- else 
-  echo "Chromecast Usage: $0 IP filename"
- fi
-}
-
-### TV Time!
-watchtv() {
- if [ ! -z "$1" ]
- then
-  # fix this with DNS at some point
-  mpv http://192.168.1.39:5004/auto/v"$1" --geometry=50%
- else 
-  echo 'Enter the channel to watch: $0 $channel:'
- fi
-}
-
-### Generate a random string based on length
-pwgen() {
- if [ ! -z "$1" ]
- then
-  < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-$1};echo;
- else 
-  echo 'Enter the length: pwgen $length'
- fi
-}
-
 ## Sync macro to sync to db
 sync_history_to_db() {
  # sync my history to dropbox, if authkey is there
@@ -184,23 +122,6 @@ colors() {
 	done
 }
 
-### Last pass function:
-lpssh() {
- if [ ! -z "$1" ]
- then
-  lpstatus=$(exec lpass status)
-  if [[ ! $lpstatus =~ .*Not.* ]]
-  then
-   echo "Loading key: " "$1"
-   lpass show --notes "$1" --field 'Private Key' | ssh-add -
-  else
-   echo "login to lastpass first..."
-  fi
- else
-  echo "I need a key to load!"
- fi
-}
-
 #### custom editor config
 export EDITOR='vim'
 
@@ -234,6 +155,12 @@ if [ -x /usr/bin/dircolors ]; then
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
+fi
+
+# Function definitions.
+# Moving all functions outside of .bashrc
+if [ -f ~/.bash_functions ]; then
+    . ~/.bash_functions
 fi
 
 # Alias definitions.
