@@ -31,10 +31,17 @@ if [ ! -z "$DISPLAY" ]; then
 fi
 
 ## Check to see if the VIM color folder exists
-if [ ! -d ~/.vim/colors ]; then
+if [ ! -e ~/.vim/colors/potato.vim ]; then
  echo "Setting up VIM colors..."
  mkdir -p ~/.vim/colors
  cp ~/dotfiles/potato.vim ~/.vim/colors/potato.vim
+fi
+
+## Configure MPV to use high quality rendering.
+if [ ! -e ~/.config/mpv/mpv.conf ]; then
+ echo "Setting up MPV customizations..."
+ mkdir -p ~/.config/mpv
+ ln -s ~/dotfiles/mpv.conf ~/.config/mpv/mpv.conf
 fi
 
 ## Modification of Ubuntu Release Manager:
