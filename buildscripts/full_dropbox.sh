@@ -39,8 +39,15 @@ sudo chown $USER:$USER ~/db_mnt
 # install Dropbox now
 ###
 
-sudo apt install python3-gpg
-sudo dpkg -i ~/Downloads/dropbox.deb
+if [ -e ~/Downloads/dropbox.deb ]
+then
+ echo "installing dropbox..."
+ sudo apt install python3-gpg -y
+ sudo dpkg -i ~/Downloads/dropbox.deb
+else
+ echo "I didn't find dropbox.deb in the Downloads directory..."
+ echo "Please Download and install the dropbox package file manually."
+fi
 
 ####
 # Configure AutoStart
