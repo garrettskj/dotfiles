@@ -1,5 +1,33 @@
-### Check the linux distribution:
+#!/bin/bash
+#
+# This is a generatic staging bash script for configuring the environment to my preferences
+#
 
+usage()
+{
+    echo "usage: packages.sh [[[-s desktop ] | [-h]]"
+}
+
+foo=
+MACHINECLASS=CLI
+
+while [ "$1" != "" ]; do
+    case $1 in
+        -s | --system )           shift
+                                MACHINECLASS=$1
+                                ;;
+#        -i | --foo )    foo=1
+#                                ;;
+        -h | --help )           usage
+                                exit
+                                ;;
+        * )                     usage
+                                exit 1
+    esac
+    shift
+done
+
+## Check the linux distribution:
 OS=$(awk '/DISTRIB_ID=/' /etc/*-release | sed 's/DISTRIB_ID=//' | tr '[:upper:]' '[:lower:]')
 ARCH=$(uname -m | sed 's/x86_//;s/i[3-6]86/32/')
 VERSION=$(awk '/DISTRIB_RELEASE=/' /etc/*-release | sed 's/DISTRIB_RELEASE=//' | sed 's/[.]/./')
@@ -14,32 +42,52 @@ fi
 
 ## Package installation
 if [ $OS = "ubuntu" ]; then
-	# Install the signing keys
-	wget -qO - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add - > /dev/null 2>&1
-	wget -qO - https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add - > /dev/null 2>&1
-	wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add - > /dev/null 2>&1
-	wget -qO - https://packagecloud.io/slacktechnologies/slack/gpgkey | sudo apt-key add - > /dev/null 2>&1
+
+	# General PPAs
+	sudo add-apt-repository ppa:wireguard/wireguard -y
+	sudo add-apt-repository ppa:phoerious/keepassxc -y
+
+
+	CLI_PACKAGE_LIST="zram-config htop xz-utils exfat-utils net-tools pinta \
+        		  tmux curl minicom irssi openssh-server python3-pip virtualenv python3-dev \
+			  wireguard"
+
+	DESKTOP_PACKAGE_LIST="scrot ffmpeg slack-desktop remmina atom wireshark filezilla \
+			      google-chrome-beta vlc xclip vim-gnome pinta deluge mpv \
+                              android-tools-adb android-tools-fastboot nextcloud-client \
+			      keepassxc"
+
+	if [ $MACHINECLASS == 'desktop' ]; then
+		# Install the signing keys
+		wget -qO - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add - > /dev/null 2>&1
+		wget -qO - https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add - > /dev/null 2>&1
+		wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add - > /dev/null 2>&1
+		wget -qO - https://packagecloud.io/slacktechnologies/slack/gpgkey | sudo apt-key add - > /dev/null 2>&1
+		
 	
-	## Update PPAs
-	# Chrome
-	sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome-beta.list'
+		## Update PPAs
+		# Chrome
+		sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome-beta.list'
 
-	# sublime
-	sudo sh -c 'echo "deb https://download.sublimetext.com/ apt/dev/" > /etc/apt/sources.list.d/sublime.list' 
+		# sublime
+		sudo sh -c 'echo "deb https://download.sublimetext.com/ apt/dev/" > /etc/apt/sources.list.d/sublime.list' 
 
-	# atom
-	sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
+		# atom
+		sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
 
-	#slack
-	sudo sh -c 'echo "deb https://packagecloud.io/slacktechnologies/slack/debian/ jessie main" > /etc/apt/sources.list.d/slack.list'
+		# slack
+		sudo sh -c 'echo "deb https://packagecloud.io/slacktechnologies/slack/debian/ jessie main" > /etc/apt/sources.list.d/slack.list'
 
-	### install updated packages
+		## Next Cloud Client
+		add-apt-repository ppa:nextcloud-devs/client -y
+
+		### install updated packages
+		sudo apt update
+		sudo apt install $DESKTOP_PACKAGE_LIST -y
+	fi
+
 	sudo apt update
-	sudo apt install zram-config htop scrot ffmpeg slack-desktop remmina atom wireshark \
-	filezilla google-chrome-beta vlc xz-utils exfat-utils net-tools xclip vim-gnome pinta \
-	tmux deluge curl minicom irssi openssh-server mpv python3-pip virtualenv python3-dev \
-	android-tools-adb android-tools-fastboot \
-	-y
+	sudo apt install $CLI_PACKAGE_LIST -y
 fi
 
 if [ $OS = "manjarolinux" ]; then
