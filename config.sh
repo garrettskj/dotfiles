@@ -10,6 +10,10 @@ FILES=(
 '.vimrc' \
 )
 
+## Where ever you made the git repo,
+## let's symlink dotfiles to it.
+ln -s $(pwd) ~/dotfiles
+
 # go through the list, and check for symlinks, and if they aren't symlinked..
 # symlink them!
 for file in ${FILES[@]}; do
