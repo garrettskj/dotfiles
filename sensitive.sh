@@ -4,28 +4,25 @@
 #
 # 'sensitive.sh $email'
 #
-LASTPASS='/usr/bin/lpass'
+#LASTPASS='/usr/bin/lpass'
 
 # verify that there is one argument passed at least.
-if [[ $# != 1 ]]; then
- echo "Usage: $0 lastpasslogin"
- exit 1
+if [[ ! -z $PASSWORD_STORE ]]
+ then
+  echo "Store Set"
+ else
+  echo "Not Set"
+  exit 1
 fi
 
-export LPASS_DISABLE_PINENTRY=1
-
-# Login to Lastpass and get status
-lplogin=$(exec $LASTPASS login $1)
-lpstatus=$(exec $LASTPASS status)
-
-## Check to see if Logged in
-if [[ $lpstatus =~ .*Not.* ]]
+if [ ! -e /usr/local/bin/gp.sh ]
  then
-   echo "Creating & adding authorized_keys"
-   mkdir -p ~/.ssh && touch ~/.ssh/authorized_keys
-   chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys
-   lpcopykeys=$(exec $LASTPASS show --notes authorized_keys >> ~/.ssh/authorized_keys)
+  sudo cp $(pwd)/scripts/gp.sh /usr/local/bin/
+  echo "Creating & adding authorized_keys"
+  mkdir -p ~/.ssh && touch ~/.ssh/authorized_keys
+  chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys
+  /usr/local/bin/gp.sh -nc files/authorized_keys >> ~/.ssh/authorized_keys
  else
-  echo "Already Exists! Overwriting.."
-  lpcopykeys=$(exec $LASTPASS show --notes authorized_keys > ~/.ssh/authorized_keys)
+  echo "Password Manager already exists, keys should already exist.." 
+  #/usr/local/bin/gp.sh -nc files/authorized_keys > ~/.ssh/authorized_keys
 fi

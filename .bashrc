@@ -41,8 +41,29 @@ sync_history_to_db() {
  fi
 }
 
-### sync the history file every time "enter" is hit.
-PROMPT_COMMAND="history -a >(tee -a $HISTFILE | sync_history_to_db)"
+_PROMPT() {
+    _EXIT_STATUS=$?
+    [ $_EXIT_STATUS != 0 ] && _EXIT_STATUS_STR=" \[\033[38;5;7m\][\[$(tput sgr0)\]\[\033[38;5;9m\]$_EXIT_STATUS\[$(tput sgr0)\]\[\033[38;5;7m\]]\[$(tput sgr0)\]"
+
+	_BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
+	if [ ! $_BRANCH == "" ]
+	then
+		_BRANCH_STR="[\[$(tput sgr0)\]\[\033[38;5;11m\]$_BRANCH\[$(tput sgr0)\]\[\033[38;5;7m\]]"
+	else
+		_BRANCH_STR=""
+	fi
+
+    PS1="\[\033[38;5;14m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\]@\[$(tput sgr0)\]\[\033[38;5;6m\]\h\[$(tput sgr0)\] \[$(tput sgr0)\]\[\033[38;5;7m\]╺─╸\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;7m\][\[$(tput sgr0)\]\[\033[38;5;14m\]\W\[$(tput sgr0)\]\[\033[38;5;7m\]]\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;7m\]$_BRANCH_STR\[$(tput sgr0)\]\[\033[38;5;15m\] \n\[$(tput sgr0)\]\[\033[38;5;7m\][\[$(tput sgr0)\]\[\033[38;5;11m\]\A\[$(tput sgr0)\]\[\033[38;5;7m\]]\[$(tput sgr0)\]\[\033[38;5;15m\]$_EXIT_STATUS_STR \[$(tput sgr0)\]\[\033[38;5;7m\]>>\[$(tput sgr0)\] "
+    unset _EXIT_STATUS_STR
+	unset _EXIT_STATUS
+	unset _BRANCH_STR
+	unset _BRANCH
+
+	### sync the history file every time "enter" is hit.
+	PROMPT_COMMAND="history -a >(tee -a $HISTFILE | sync_history_to_db)"
+}
+
+PROMPT_COMMAND=_PROMPT
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -180,5 +201,14 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 [ -r /usr/share/bash-completion/bash_completion   ] && . /usr/share/bash-completion/bash_completion
+
+ source ~/.bash_completion.d/alacritty
+
 ### Bonus bashrc syntax
 [[ -f ~/.extend.bashrc ]] && . ~/.extend.bashrc
+
+## Export Android-sdk
+export ANDROID_HOME=~/android-sdk
+export ANDROID_SDK_ROOT=~/android-sdk
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools/

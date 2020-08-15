@@ -8,6 +8,7 @@ FILES=(
 '.bash_functions' \
 '.bashrc' \
 '.vimrc' \
+'.alacritty.yml' \
 )
 
 ## Where ever you made the git repo,
@@ -65,3 +66,13 @@ then
 else
  echo "Must not be a linux system.. XD"
 fi
+
+## Modification of Regolith from LTS to Main
+if [ -e /etc/apt/sources.list.d/regolith-linux-ubuntu-release-focal.list ]
+ then
+  sudo rm -f /etc/apt/sources.list.d/regolith-linux-ubuntu-release-*
+  echo "Changing from the Release version of Regolith to Stable"
+  sudo add-apt-repository ppa:regolith-linux/stable
+ else
+  echo "Not be a regolith linux system.. XD"
+ fi

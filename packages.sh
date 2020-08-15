@@ -62,7 +62,7 @@ if [ $OS = "ubuntu" ]; then
     DESKTOP_PACKAGE_LIST="scrot ffmpeg slack-desktop remmina atom wireshark filezilla \
                           google-chrome-beta vlc xclip pinta deluge mpv \
                           android-tools-adb android-tools-fastboot nextcloud-client \
-                          keepassxc lib32z1 lib32ncurses6 vim-gtk"
+                          keepassxc lib32z1 lib32ncurses6 vim-gtk fonts-dejavu teams"
 
     if [ "$DESKTOP" -eq 1 ]; then
         # Install the signing keys
@@ -85,12 +85,18 @@ if [ $OS = "ubuntu" ]; then
         # slack
         sudo sh -c 'echo "deb https://packagecloud.io/slacktechnologies/slack/debian/ jessie main" > /etc/apt/sources.list.d/slack.list'
 
+        # MS Teams:
+		sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/ms-teams stable main" > /etc/apt.sources.list.d/teams.list' 
+
         ## Next Cloud Client
         add-apt-repository ppa:nextcloud-devs/client -y
 
         ### install updated packages
         sudo apt update
         sudo apt install $DESKTOP_PACKAGE_LIST -y
+
+        # Install Youtube-DL
+        sudo -H pip3 install --upgrade youtube-dl
     fi
 
     sudo apt update
