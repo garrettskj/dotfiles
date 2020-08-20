@@ -5,6 +5,7 @@ alias ta='tmux attach-session -t'
 ## Credentials specific
 alias ght='/usr/local/bin/gp.sh -n "GitHub Token"'
 alias getpass='/usr/local/bin/gp.sh'
+alias setpass='/usr/local/bin/sp.sh'
 alias passlist='keepassxc-cli ls $PASSWORD_STORE'
 
 ## Utility
@@ -14,6 +15,7 @@ alias kclean='dpkg -l | egrep "linux\-(*image*|*headers*)\-[0-9]" | egrep -v "`u
 alias python='python3'
 alias pythong='python3'
 alias py='python3'
+alias pipu='pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U'
 
 # AnyConnect
 alias vpn='/opt/cisco/anyconnect/bin/vpn'
