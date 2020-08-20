@@ -41,26 +41,39 @@ sync_history_to_db() {
  fi
 }
 
+## Terminal Reset
+TRESET="\[\e[0m\]"
+#TRESET="\[$(tput sgr0)\]"
+
+## COLORS
+CYAN="\[\033[38;5;14m\]"
+WHITE="\[\033[38;5;15m\]"
+TEAL="\[\033[38;5;6m\]"
+LIGHTGREY="\[\033[38;5;7m\]"
+RED="\[\033[38;5;1m\]"
+YELLOW="\[\033[38;5;11m\]"
+
 _PROMPT() {
     _EXIT_STATUS=$?
-    [ $_EXIT_STATUS != 0 ] && _EXIT_STATUS_STR=" \[\033[38;5;7m\][\[$(tput sgr0)\]\[\033[38;5;9m\]$_EXIT_STATUS\[$(tput sgr0)\]\[\033[38;5;7m\]]\[$(tput sgr0)\]"
+    [ $_EXIT_STATUS != 0 ] && _EXIT_STATUS_STR="${TRESET}${LIGHTGREY} [${TRESET}${RED}$_EXIT_STATUS${TRESET}${LIGHTGREY}]${TRESET}"
 
 	_BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
 	if [ ! $_BRANCH == "" ]
 	then
-		_BRANCH_STR="[\[$(tput sgr0)\]\[\033[38;5;11m\]$_BRANCH\[$(tput sgr0)\]\[\033[38;5;7m\]]"
+		_BRANCH_STR="[${TRESET}${YELLOW}$_BRANCH${TRESET}${LIGHTGREY}]"
 	else
 		_BRANCH_STR=""
 	fi
 
-    PS1="\[\033[38;5;14m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\]@\[$(tput sgr0)\]\[\033[38;5;6m\]\h\[$(tput sgr0)\] \[$(tput sgr0)\]\[\033[38;5;7m\]╺─╸\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;7m\][\[$(tput sgr0)\]\[\033[38;5;14m\]\W\[$(tput sgr0)\]\[\033[38;5;7m\]]\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;7m\]$_BRANCH_STR\[$(tput sgr0)\]\[\033[38;5;15m\] \n\[$(tput sgr0)\]\[\033[38;5;7m\][\[$(tput sgr0)\]\[\033[38;5;11m\]\A\[$(tput sgr0)\]\[\033[38;5;7m\]]\[$(tput sgr0)\]\[\033[38;5;15m\]$_EXIT_STATUS_STR \[$(tput sgr0)\]\[\033[38;5;7m\]>>\[$(tput sgr0)\] "
+    PS1="${CYAN}\u${TRESET}${WHITE}@${TRESET}${TEAL}\h${TRESET} ${LIGHTGREY}╺─╸${TRESET}${LIGHTGREY} [${TRESET}${CYAN}\W${TRESET}${LIGHTGREY}]${TRESET}${LIGHTGREY} $_BRANCH_STR${TRESET}${WHITE} \n${TRESET}${LIGHTGREY}[${TRESET}${YELLOW}\A${TRESET}${LIGHTGREY}]$_EXIT_STATUS_STR${TRESET}${LIGHTGREY} >>${TRESET} "
+	
+	### sync the history file every time "enter" is hit.
+    #PROMPT_COMMAND="history -a >(tee -a $HISTFILE | sync_history_to_db)"
+
     unset _EXIT_STATUS_STR
 	unset _EXIT_STATUS
 	unset _BRANCH_STR
 	unset _BRANCH
-
-	### sync the history file every time "enter" is hit.
-	PROMPT_COMMAND="history -a >(tee -a $HISTFILE | sync_history_to_db)"
 }
 
 PROMPT_COMMAND=_PROMPT

@@ -74,5 +74,15 @@ if [ -e /etc/apt/sources.list.d/regolith-linux-ubuntu-release-focal.list ]
   echo "Changing from the Release version of Regolith to Stable"
   sudo add-apt-repository ppa:regolith-linux/stable
  else
-  echo "Not be a regolith linux system.. XD"
+  echo "This is most likely not a regolith linux system..."
  fi
+
+## Configure Remmina DataDir
+if [ -e ~/.config/remmina/remmina.pref ]
+ then
+  echo "Updating Remmina Data Directory..."
+  sudo sed -i -E "s%datadir_path.*$%datadir_path=$HOME/Nextcloud/protected/infrastructure/remmina_data%" ~/.config/remmina/remmina.pref
+ else
+  echo "Remmina not installed."
+fi
+

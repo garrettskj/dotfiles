@@ -163,13 +163,33 @@ font:
 #draw_bold_text_with_bright_colors: false
 
 # Colors (Tomorrow Night)
-#colors:
+colors:
   # Default colors
-  #primary:
-  #  background: '#1d1f21'
-  #  foreground: '#c5c8c6'
+  primary:
+    background: '0x292929'
+    foreground: '0xa2a2a2'
 
-    # Bright and dim foreground colors
+  # Normal colors
+  normal:
+    black:   '0x4e4e4e'
+    red:     '0xca3c31'
+    green:   '0x468459'
+    yellow:  '0x84763d'
+    blue:    '0x5879af'
+    magenta: '0x9c6594'
+    cyan:    '0x008592'
+    white:   '0xcfcfcf'
+
+  # Bright colors
+  bright:
+    black:   '0x777777'
+    red:     '0xffbbb2'
+    green:   '0x9ddeaf'
+    yellow:  '0xe0ce91'
+    blue:    '0xb3d1ff'
+    magenta: '0xfabdf0'
+    cyan:    '0x79e0ed'
+    white:   '0xffffff'
     #
     # The dimmed foreground color is calculated automatically if it is not present.
     # If the bright foreground color is not set, or `draw_bold_text_with_bright_colors`
@@ -221,29 +241,7 @@ font:
     #  background: '#c5c8c6'
     #  foreground: '#1d1f21'
 
-  # Normal colors
-  #normal:
-  #  black:   '#1d1f21'
-  #  red:     '#cc6666'
-  #  green:   '#b5bd68'
-  #  yellow:  '#f0c674'
-  #  blue:    '#81a2be'
-  #  magenta: '#b294bb'
-  #  cyan:    '#8abeb7'
-  #  white:   '#c5c8c6'
-
-  # Bright colors
-  #bright:
-  #  black:   '#666666'
-  #  red:     '#d54e53'
-  #  green:   '#b9ca4a'
-  #  yellow:  '#e7c547'
-  #  blue:    '#7aa6da'
-  #  magenta: '#c397d8'
-  #  cyan:    '#70c0b1'
-  #  white:   '#eaeaea'
-
-  # Dim colors
+# Dim colors
   #
   # If the dim colors are not set, they will be calculated automatically based
   # on the `normal` colors.

@@ -95,8 +95,8 @@ if [ $OS = "ubuntu" ]; then
         sudo apt update
         sudo apt install $DESKTOP_PACKAGE_LIST -y
 
-        # Install Youtube-DL
-        sudo -H pip3 install --upgrade youtube-dl
+        # Install python packages
+        sudo -H pip3 install --upgrade youtube-dl tldr
     fi
 
     sudo apt update
