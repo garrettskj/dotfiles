@@ -33,8 +33,10 @@ alias xclip="xclip -selection clipboard"
 alias dir='ls'
 alias cls='clear'
 
-# adding flags
-alias cp="cp -i"                          # confirm before overwriting something
+# adding flags for extra protection
+alias cp="cp -i"                          # confirm before overwriting
+alias mv="mv -i"                          # confirm before overwriting
+alias rm="rm -i"                          # confirm before deleting
 alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
 
