@@ -12,10 +12,10 @@ usage()
 DESKTOP=0
 
 ## If there are no arguments, display usage
-if [ $# -eq 0 ]; then
-   usage
-   exit 1
-fi
+#if [ $# -eq 0 ]; then
+#   usage
+#   exit 1
+#fi
 
 POSITIONAL=()
 while [[ $# -gt 0 ]]
@@ -86,10 +86,13 @@ if [ $OS = "ubuntu" ]; then
         sudo sh -c 'echo "deb https://packagecloud.io/slacktechnologies/slack/debian/ jessie main" > /etc/apt/sources.list.d/slack.list'
 
         # MS Teams:
-		sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/ms-teams stable main" > /etc/apt.sources.list.d/teams.list' 
+        # Install repository configuration
+        curl -sSL https://packages.microsoft.com/config/ubuntu/20.04/prod.list | sudo tee /etc/apt/sources.list.d/microsoft-prod.list
+        curl -sSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+		#sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/ms-teams stable main" > /etc/apt/sources.list.d/teams.list' 
 
         ## Next Cloud Client
-        add-apt-repository ppa:nextcloud-devs/client -y
+        sudo add-apt-repository ppa:nextcloud-devs/client -y
 
         ### install updated packages
         sudo apt update
