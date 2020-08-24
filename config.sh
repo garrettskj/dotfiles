@@ -8,7 +8,12 @@ FILES=(
 '.bash_functions' \
 '.bashrc' \
 '.vimrc' \
+'.alacritty.yml' \
 )
+
+## Where ever you made the git repo,
+## let's symlink dotfiles to it.
+ln -s $(pwd) ~/dotfiles
 
 # go through the list, and check for symlinks, and if they aren't symlinked..
 # symlink them!
@@ -61,3 +66,23 @@ then
 else
  echo "Must not be a linux system.. XD"
 fi
+
+## Modification of Regolith from LTS to Main
+if [ -e /etc/apt/sources.list.d/regolith-linux-ubuntu-release-focal.list ]
+ then
+  sudo rm -f /etc/apt/sources.list.d/regolith-linux-ubuntu-release-*
+  echo "Changing from the Release version of Regolith to Stable"
+  sudo add-apt-repository ppa:regolith-linux/stable
+ else
+  echo "This is most likely not a regolith linux system..."
+ fi
+
+## Configure Remmina DataDir
+if [ -e ~/.config/remmina/remmina.pref ]
+ then
+  echo "Updating Remmina Data Directory..."
+  sudo sed -i -E "s%datadir_path.*$%datadir_path=$HOME/Nextcloud/protected/infrastructure/remmina_data%" ~/.config/remmina/remmina.pref
+ else
+  echo "Remmina not installed."
+fi
+
