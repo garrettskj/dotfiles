@@ -21,9 +21,13 @@ mkdir -p ~/.bash_completion.d
 cp extra/completions/alacritty.bash ~/.bash_completion.d/alacritty
 echo "source ~/.bash_completion.d/alacritty" >> ~/.bashrc
 
+# Copy binary to path
+sudo cp ~/.cargo/bin/alacritty /usr/local/bin
+
 # Copy default config into home dir
 # if it doesn't already exist
 if [ ! -e ~/.alacritty.yml ]
+ then
  cp alacritty.yml ~/.alacritty.yml
 fi
 
@@ -32,18 +36,14 @@ sudo cp extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
 sudo desktop-file-install extra/linux/Alacritty.desktop
 sudo update-desktop-database
 
-# Copy binary to path
-sudo cp ~/.cargo/bin/alacritty /usr/local/bin
-
 # Use Alacritty as default terminal (Ctrl + Alt + T)
 gsettings set org.gnome.desktop.default-applications.terminal exec 'alacritty'
 
 ## Add it to the update alternatives
-sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/alacritty 50
+sudo update-alternatives --quiet --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/alacritty 50
 
 # Config as default
-sudo update-alternatives --config x-terminal-emulator
-
+sudo update-alternatives --skip-auto --config x-terminal-emulator
 
 # Remove temporary dir
 #rm -r alacritty

@@ -21,6 +21,7 @@ fi
 # Check if GP already exists.
 if [ ! -e /usr/local/bin/gp.sh ]
  then
+  sudo apt install -y libsecret-tools
   sudo cp $(pwd)/scripts/gp.sh /usr/local/bin/
   sudo cp $(pwd)/scripts/sp.sh /usr/local/bin/
   echo "Creating & adding authorized_keys"
