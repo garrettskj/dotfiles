@@ -48,14 +48,14 @@ if [ $OS = "ubuntu" ]; then
 	sudo add-apt-repository ppa:phoerious/keepassxc -y
 
 
-	CLI_PACKAGE_LIST="zram-config htop xz-utils exfat-utils net-tools pinta \
+	CLI_PACKAGE_LIST="zram-config htop xz-utils exfat-utils net-tools \
         		  tmux curl minicom irssi openssh-server python3-pip virtualenv python3-dev \
-			  wireguard"
+			  wireguard whois vlan"
 
 	DESKTOP_PACKAGE_LIST="scrot ffmpeg slack-desktop remmina atom wireshark filezilla \
-			      google-chrome-beta vlc xclip vim-gnome pinta deluge mpv \
+			      google-chrome-beta vlc xclip pinta deluge mpv \
                               android-tools-adb android-tools-fastboot nextcloud-client \
-			      keepassxc"
+			      keepassxc sublime-text"
 
 	if [ $MACHINECLASS == 'desktop' ]; then
 		# Install the signing keys

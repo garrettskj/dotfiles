@@ -6,3 +6,4 @@ alias kclean='dpkg -l | egrep "linux\-(*image*|*headers*)\-[0-9]" | egrep -v "`u
 alias python='python3'
 alias pythong='python3'
 alias py='python3'
+alias ac_cde='~/gitrepos/ac_patcher/ac_cde.sh'
