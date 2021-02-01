@@ -8,6 +8,13 @@ twitch() {
  fi
 }
 
+### rename window title
+renwin() {
+ sleep 5;
+ xdotool set_window --name "$*" `xdotool getactivewindow`
+}
+
+
 ### Listen to Di.FM with MPV
 difm() {
  if [ ! -z "$1" ]

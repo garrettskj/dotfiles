@@ -9,7 +9,10 @@ alias setpass='/usr/local/bin/sp.sh'
 alias passlist='keepassxc-cli ls $PASSWORD_STORE'
 
 ## Utility
-alias kclean='dpkg -l | egrep "linux\-(*image*|*headers*)\-[0-9]" | egrep -v "`uname -r | awk -F- '\''{print $1"-"$2}'\''`" | cut -d" " -f 3'
+alias kclean='dpkg -l | egrep "linux\-(*image*|*headers*|*modules*)\-[0-9]" | egrep -v "`uname -r | awk -F- '\''{print $1"-"$2}'\''`" | cut -d" " -f 3'
+alias movie_fix='python3 ~/gitrepos/dotfiles/scripts/fix_movie.py'
+alias jsontidy="xclip -o | jq '.' | xclip -sel clip"
+alias today="ncal -w -b -3"
 
 ## because I can't type
 alias python='python3'
@@ -55,12 +58,12 @@ alias pscpu='ps auxf | sort -nr -k 3'
 alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
 
 # youtube-dl --GRABBED FROM DISTROTUBE--
-alias yta-aac="youtube-dl --extract-audio --audio-format aac "
-alias yta-best="youtube-dl --extract-audio --audio-format best "
-alias yta-flac="youtube-dl --extract-audio --audio-format flac "
-alias yta-m4a="youtube-dl --extract-audio --audio-format m4a "
-alias yta-mp3="youtube-dl --extract-audio --audio-format mp3 "
-alias yta-opus="youtube-dl --extract-audio --audio-format opus "
-alias yta-vorbis="youtube-dl --extract-audio --audio-format vorbis "
-alias yta-wav="youtube-dl --extract-audio --audio-format wav "
-alias ytv-best="youtube-dl -f bestvideo+bestaudio "
+alias yta-aac="youtube-dlc --extract-audio --audio-format aac "
+alias yta-best="youtube-dlc --extract-audio --audio-format best "
+alias yta-flac="youtube-dlc --extract-audio --audio-format flac "
+alias yta-m4a="youtube-dlc --extract-audio --audio-format m4a "
+alias yta-mp3="youtube-dlc --extract-audio --audio-format mp3 "
+alias yta-opus="youtube-dlc --extract-audio --audio-format opus "
+alias yta-vorbis="youtube-dlc --extract-audio --audio-format vorbis "
+alias yta-wav="youtube-dlc --extract-audio --audio-format wav "
+alias ytv-best="youtube-dlc -f bestvideo+bestaudio "

@@ -51,7 +51,6 @@ fi
 if [ $OS = "ubuntu" ]; then
 
     # General PPAs
-    sudo add-apt-repository ppa:wireguard/wireguard -y
     sudo add-apt-repository ppa:phoerious/keepassxc -y
 
 
@@ -97,7 +96,7 @@ if [ $OS = "ubuntu" ]; then
         sudo apt install $DESKTOP_PACKAGE_LIST -y
 
         # Install python packages
-        sudo -H pip3 install --upgrade youtube-dl tldr
+        sudo -H pip3 install --upgrade youtube-dl tldr isort yapf pynvim
     fi
 
     sudo apt update

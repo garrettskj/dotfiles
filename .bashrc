@@ -208,3 +208,4 @@ export ANDROID_HOME=~/android-sdk
 export ANDROID_SDK_ROOT=~/android-sdk
 export PATH=$PATH:$ANDROID_HOME/cmdline-tools/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools/
+source ~/.bash_completion.d/alacritty
